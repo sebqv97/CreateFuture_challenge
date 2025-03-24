@@ -1,4 +1,4 @@
-package com.createfuture.takehome.utils
+package com.createfuture.takehome.core.utils
 
 import retrofit2.Response
 

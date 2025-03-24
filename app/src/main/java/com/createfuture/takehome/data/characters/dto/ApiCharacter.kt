@@ -1,4 +1,4 @@
-package com.createfuture.takehome.data.dto
+package com.createfuture.takehome.data.characters.dto
 
 data class ApiCharacter(
     val name: String,
@@ -6,7 +6,7 @@ data class ApiCharacter(
     val culture: String,
     val born: String,
     val died: String,
-    val aliases: List<Int>,
+    val aliases: List<String>, // mistake here, was 'int'
     val tvSeries: List<String>,
     val playedBy: List<String>,
 )

@@ -7,8 +7,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.createfuture.takehome.R
 import com.createfuture.takehome.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 

@@ -1,7 +1,7 @@
 package com.createfuture.takehome.domain.repository
 
-import com.createfuture.takehome.data.dto.ApiCharacter
+import com.createfuture.takehome.data.characters.dto.ApiCharacter
 
 interface CharactersRepository {
-    fun getCharacters(): Result<ApiCharacter>
+    suspend fun getCharacters(): Result<List<ApiCharacter>>
 }
