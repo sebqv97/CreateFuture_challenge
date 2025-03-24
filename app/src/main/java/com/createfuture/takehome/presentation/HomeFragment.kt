@@ -3,6 +3,9 @@ package com.createfuture.takehome.presentation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -17,6 +20,13 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): ComposeView =
         ComposeView(requireContext()).apply {
-            setContent { HomeScreen(viewModel<HomeViewModel>()) }
+            setContent {
+                Scaffold { contentPadding ->
+                    HomeScreen(
+                        viewModel<HomeViewModel>(),
+                        modifier = Modifier.padding(contentPadding)
+                    )
+                }
+            }
         }
 }
