@@ -3,6 +3,7 @@ package com.createfuture.takehome.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.createfuture.takehome.core.utils.AppDispatchers
+import com.createfuture.takehome.data.characters.dto.ApiCharacter
 import com.createfuture.takehome.domain.GetCharactersUseCase
 import com.createfuture.takehome.domain.usecase.RetrieveAndSafeCharactersApiKeyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +25,7 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(HomeUiState(isLoading = true))
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
+    private lateinit var retrievedList: List<ApiCharacter>
 
     fun loadCharacters() {
         viewModelScope.launch {
@@ -33,6 +35,7 @@ class HomeViewModel @Inject constructor(
             }
 
             response.fold(onSuccess = { listOfCharacters ->
+                retrievedList = listOfCharacters
                 _uiState.update { state ->
                     state.copy(characters = listOfCharacters, isLoading = false)
                 }
@@ -41,6 +44,22 @@ class HomeViewModel @Inject constructor(
                     state.copy(error = error, isLoading = false)
                 }
             })
+        }
+    }
+
+    fun filterCharacters(query: String) {
+        val filteredCharacters =
+            if (query.isBlank()) {
+                retrievedList
+            } else {
+                retrievedList.filter { it.name.startsWith(query, ignoreCase = true) }
+            }
+        _uiState.update { state ->
+            state.copy(
+                characters = filteredCharacters,
+                noEntryBasedOnSearchQuery = filteredCharacters.isEmpty(),
+                searchQuery = query
+            )
         }
     }
 }
