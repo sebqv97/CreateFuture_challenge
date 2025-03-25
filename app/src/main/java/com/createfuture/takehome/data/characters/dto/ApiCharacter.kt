@@ -1,5 +1,8 @@
 package com.createfuture.takehome.data.characters.dto
 
+import androidx.annotation.Keep
+
+@Keep
 data class ApiCharacter(
     val name: String,
     val gender: String,
