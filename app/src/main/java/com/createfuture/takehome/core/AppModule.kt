@@ -2,6 +2,7 @@ package com.createfuture.takehome.core
 
 import android.content.Context
 import com.createfuture.takehome.core.interceptor.AuthorisationHeaderInterceptor
+import com.createfuture.takehome.core.utils.AppDispatchers
 import com.createfuture.takehome.data.characters.CharactersRepositoryImpl
 import com.createfuture.takehome.data.characters.CharactersServiceApi
 import com.createfuture.takehome.data.encryption.EncryptedSharedPrefsRepository
@@ -48,6 +49,10 @@ class AppModule {
     @Provides
     fun provideSecureRepository(@ApplicationContext context: Context): SecureRepository =
         EncryptedSharedPrefsRepository(context)
+
+    @Singleton
+    @Provides
+    fun provideAppDispatchers(): AppDispatchers = AppDispatchers()
 
 
     private companion object {

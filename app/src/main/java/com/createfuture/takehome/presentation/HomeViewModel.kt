@@ -30,8 +30,12 @@ class HomeViewModel @Inject constructor(
     fun loadCharacters() {
         viewModelScope.launch {
             val response = withContext(appDispatchers.IO) {
-                retrieveAndSafeCharactersApiKeyUseCase()
-                getCharactersUseCase()
+                try {
+                    retrieveAndSafeCharactersApiKeyUseCase()
+                    getCharactersUseCase()
+                } catch (e: Exception) {
+                    Result.failure(e)
+                }
             }
 
             response.fold(onSuccess = { listOfCharacters ->
