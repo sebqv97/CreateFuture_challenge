@@ -1,4 +1,4 @@
-package com.createfuture.home.utils
+package com.createfuture.core.utils
 
 fun String.removeLastOccurrenceOf(char:String): String {
     val lastCommaIndex = lastIndexOf(char)

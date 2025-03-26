@@ -1,4 +1,4 @@
-package com.createfuture.home.core.interceptor
+package com.createfuture.core.interceptor
 
 import com.createfuture.home.data.characters.RequiresCharactersAuthHeader
 import com.createfuture.home.domain.repository.SecureRepository

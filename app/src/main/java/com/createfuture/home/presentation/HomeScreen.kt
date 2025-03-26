@@ -34,7 +34,7 @@ fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier) {
                 painterResource(id = R.drawable.img_characters),
                 contentScale = ContentScale.FillBounds
             )
-            .padding(vertical = 16.dp, horizontal = 8.dp)
+            .padding(top = 16.dp, start = 8.dp, end = 8.dp)
     ) {
         SearchBar(onTextChanged = { viewModel.filterCharacters(it) })
         Column(

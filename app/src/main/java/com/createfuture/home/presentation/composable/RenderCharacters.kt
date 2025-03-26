@@ -17,8 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.createfuture.home.data.characters.dto.ApiCharacter
-import com.createfuture.home.utils.removeLastOccurrenceOf
-import com.createfuture.home.utils.substringUntilString
+import com.createfuture.core.utils.removeLastOccurrenceOf
+import com.createfuture.core.utils.substringUntilString
 
 @Composable
 fun RenderCharacters(characters: List<ApiCharacter>) {

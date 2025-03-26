@@ -1,13 +1,15 @@
-package com.createfuture.home.core
+package com.createfuture.core.di
 
 import android.content.Context
-import com.createfuture.home.core.interceptor.AuthorisationHeaderInterceptor
-import com.createfuture.home.core.utils.AppDispatchers
+import com.createfuture.core.interceptor.AuthorisationHeaderInterceptor
+import com.createfuture.core.utils.AppDispatchers
 import com.createfuture.home.data.characters.CharactersRepositoryImpl
 import com.createfuture.home.data.characters.CharactersServiceApi
 import com.createfuture.home.data.encryption.EncryptedSharedPrefsRepository
 import com.createfuture.home.domain.repository.CharactersRepository
 import com.createfuture.home.domain.repository.SecureRepository
+import com.createfuture.login.data.LoginRepositoryImpl
+import com.createfuture.login.domain.LoginRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,6 +46,11 @@ class AppModule {
     @Provides
     fun provideCharactersRepository(api: CharactersServiceApi): CharactersRepository =
         CharactersRepositoryImpl(api)
+
+    @Singleton
+    @Provides
+    fun provideLoginRepository(secureRepository: SecureRepository): LoginRepository =
+        LoginRepositoryImpl(secureRepository)
 
     @Singleton
     @Provides

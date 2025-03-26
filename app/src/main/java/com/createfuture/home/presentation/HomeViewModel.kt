@@ -2,10 +2,9 @@ package com.createfuture.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.createfuture.home.core.utils.AppDispatchers
+import com.createfuture.core.utils.AppDispatchers
 import com.createfuture.home.data.characters.dto.ApiCharacter
 import com.createfuture.home.domain.GetCharactersUseCase
-import com.createfuture.home.domain.usecase.RetrieveAndSafeCharactersApiKeyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
-    private val retrieveAndSafeCharactersApiKeyUseCase: RetrieveAndSafeCharactersApiKeyUseCase,
     private val appDispatchers: AppDispatchers
 ) : ViewModel() {
 
@@ -31,7 +29,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val response = withContext(appDispatchers.IO) {
                 try {
-                    retrieveAndSafeCharactersApiKeyUseCase()
                     getCharactersUseCase()
                 } catch (e: Exception) {
                     Result.failure(e)

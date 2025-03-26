@@ -1,4 +1,4 @@
-package com.createfuture.home.core.utils
+package com.createfuture.core.utils
 
 import retrofit2.Response
 

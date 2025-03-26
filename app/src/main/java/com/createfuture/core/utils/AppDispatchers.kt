@@ -1,4 +1,4 @@
-package com.createfuture.home.core.utils
+package com.createfuture.core.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

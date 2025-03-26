@@ -1,4 +1,4 @@
-package com.createfuture.home
+package com.createfuture
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
