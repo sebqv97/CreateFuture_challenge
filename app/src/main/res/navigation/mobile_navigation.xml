@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/navigation_home_compose"
-        android:name="com.createfuture.takehome.presentation.HomeFragment"/>
+        android:name="com.createfuture.home.presentation.HomeFragment"/>
 
 </navigation>
