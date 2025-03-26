@@ -4,7 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.createfuture.takehome.data.characters.dto.ApiCharacter
 import com.createfuture.takehome.utils.removeLastOccurrenceOf
 import com.createfuture.takehome.utils.substringUntilString
+import kotlin.math.sin
 
 @Composable
 fun RenderCharacters(characters: List<ApiCharacter>) {
@@ -26,7 +32,8 @@ fun RenderCharacters(characters: List<ApiCharacter>) {
         for (character in characters) {
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
                 Column {
-                    Text(text = character.name, color = Color.White, fontSize = 16.sp)
+                    Text(text = character.name, color = Color.White, fontSize = 20.sp)
+                    Spacer(Modifier.size(8.dp))
                     Row {
                         Text(text = "Culture: ", color = Color.White, fontSize = 16.sp)
                         Text(
@@ -79,7 +86,13 @@ fun RenderCharacters(characters: List<ApiCharacter>) {
                     )
                 }
             }
-            Spacer(modifier = Modifier.size(18.dp))
+            HorizontalDivider(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .fillMaxWidth(),
+                color = Color.White
+            )
+//            Spacer(modifier = Modifier.size(18.dp))
         }
     }
 }

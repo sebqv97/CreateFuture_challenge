@@ -34,18 +34,22 @@ fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier) {
                 painterResource(id = R.drawable.img_characters),
                 contentScale = ContentScale.FillBounds
             )
-            .verticalScroll(rememberScrollState())
-            .padding(vertical = 16.dp)
+            .padding(vertical = 16.dp, horizontal = 8.dp)
     ) {
-        val state by viewModel.uiState.collectAsState(initial = HomeUiState(isLoading = true))
-
         SearchBar(onTextChanged = { viewModel.filterCharacters(it) })
+        Column(
+            modifier = modifier
+                .weight(1f)
+                .verticalScroll(rememberScrollState())
+        ) {
+            val state by viewModel.uiState.collectAsState(initial = HomeUiState(isLoading = true))
 
-        when {
-            state.noEntryBasedOnSearchQuery -> DisplayNoEntries(state.searchQuery)
-            state.isLoading -> ShowLoadingSpinner()
-            state.error != null -> state.error?.let { ShowError(it) }
-            state.characters.isNotEmpty() -> RenderCharacters(state.characters)
+            when {
+                state.noEntryBasedOnSearchQuery -> DisplayNoEntries(state.searchQuery)
+                state.isLoading -> ShowLoadingSpinner()
+                state.error != null -> state.error?.let { ShowError(it) }
+                state.characters.isNotEmpty() -> RenderCharacters(state.characters)
+            }
         }
     }
 }
