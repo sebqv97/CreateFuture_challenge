@@ -16,12 +16,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.createfuture.home.data.characters.dto.ApiCharacter
 import com.createfuture.core.utils.removeLastOccurrenceOf
-import com.createfuture.core.utils.substringUntilString
+import com.createfuture.home.domain.model.GotCharacter
 
 @Composable
-fun RenderCharacters(characters: List<ApiCharacter>) {
+fun RenderCharacters(characters: List<GotCharacter>) {
     val charValueModifier = Modifier.alpha(0.5f)
     if (characters.isNotEmpty()) {
         Spacer(modifier = Modifier.size(16.dp))
@@ -52,7 +51,7 @@ fun RenderCharacters(characters: List<ApiCharacter>) {
                     Row {
                         Text(text = "Died: ", color = Color.White, fontSize = 16.sp)
                         Text(
-                            text = character.mapDiedToCorrectString(),
+                            text = character.died,
                             color = Color.White,
                             fontSize = 16.sp,
                             modifier = charValueModifier
@@ -90,14 +89,5 @@ fun RenderCharacters(characters: List<ApiCharacter>) {
                 color = Color.White
             )
         }
-    }
-}
-
-
-private fun ApiCharacter.mapDiedToCorrectString(): String {
-    return if (died.isEmpty()) {
-        "Still alive"
-    } else {
-        died.substringUntilString("AC", inclusive = true)
     }
 }

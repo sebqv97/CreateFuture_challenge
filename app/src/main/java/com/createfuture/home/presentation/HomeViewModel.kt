@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.createfuture.core.utils.AppDispatchers
 import com.createfuture.home.data.characters.dto.ApiCharacter
 import com.createfuture.home.domain.GetCharactersUseCase
+import com.createfuture.home.domain.model.GotCharacter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +24,7 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(HomeUiState(isLoading = true))
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
-    private lateinit var retrievedList: List<ApiCharacter>
+    private lateinit var retrievedList: List<GotCharacter>
 
     fun loadCharacters() {
         viewModelScope.launch {

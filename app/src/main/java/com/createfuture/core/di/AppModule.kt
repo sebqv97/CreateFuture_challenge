@@ -6,6 +6,7 @@ import com.createfuture.core.utils.AppDispatchers
 import com.createfuture.home.data.characters.CharactersRepositoryImpl
 import com.createfuture.home.data.characters.CharactersServiceApi
 import com.createfuture.home.data.encryption.EncryptedSharedPrefsRepository
+import com.createfuture.home.data.mapper.CharacterMapper
 import com.createfuture.home.domain.repository.CharactersRepository
 import com.createfuture.home.domain.repository.SecureRepository
 import com.createfuture.login.data.LoginRepositoryImpl
@@ -44,8 +45,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideCharactersRepository(api: CharactersServiceApi): CharactersRepository =
-        CharactersRepositoryImpl(api)
+    fun provideCharactersRepository(api: CharactersServiceApi, characterMapper: CharacterMapper): CharactersRepository =
+        CharactersRepositoryImpl(api, characterMapper)
 
     @Singleton
     @Provides

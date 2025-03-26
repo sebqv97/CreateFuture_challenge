@@ -19,6 +19,7 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.io.IOException
 
+
 class HomeViewModelTest {
 
     @get:Rule
