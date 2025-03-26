@@ -3,16 +3,13 @@ package com.createfuture.home.presentation
 import com.createfuture.home.data.characters.dto.ApiCharacter
 import com.createfuture.home.domain.GetCharactersUseCase
 import com.createfuture.home.utils.CoroutineTestRule
-import com.createfuture.home.utils.test
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
-
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -22,11 +19,10 @@ import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
 import java.io.IOException
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
 
     @get:Rule
-    val rule = CoroutineTestRule(UnconfinedTestDispatcher())
+    val rule = CoroutineTestRule()
 
     private val getCharactersUseCase = mockk<GetCharactersUseCase>()
     private lateinit var subject: HomeViewModel
@@ -54,15 +50,15 @@ class HomeViewModelTest {
 
             subject.loadCharacters()
 
-            subject.uiState.test {
-                advanceUntilIdle()
-                expectThat(it.last()) {
+            backgroundScope.launch {
+                expectThat(subject.uiState.last()) {
                     get { error } isEqualTo expectedException
                     get { isLoading } isEqualTo false
                     get { characters } isEqualTo emptyList()
                 }
             }
         }
+
 
     @Test
     fun `Given getCharactersUseCase returns failure When loadDevices is called Then check error is emitted`() =
@@ -72,9 +68,8 @@ class HomeViewModelTest {
 
             subject.loadCharacters()
 
-            subject.uiState.test {
-                advanceUntilIdle()
-                expectThat(it.last()) {
+            backgroundScope.launch {
+                expectThat(subject.uiState.last()) {
                     get { error } isEqualTo expectedException
                     get { isLoading } isEqualTo false
                     get { characters } isEqualTo emptyList()
@@ -90,9 +85,8 @@ class HomeViewModelTest {
 
             subject.loadCharacters()
 
-            subject.uiState.test {
-                advanceUntilIdle()
-                expectThat(it.last()) {
+            backgroundScope.launch {
+                expectThat(subject.uiState.last()) {
                     get { error } isEqualTo null
                     get { isLoading } isEqualTo false
                     get { characters } isEqualTo expectedCharacters
@@ -109,9 +103,8 @@ class HomeViewModelTest {
             subject.loadCharacters()
             subject.filterCharacters("")
 
-            subject.uiState.test {
-                advanceUntilIdle()
-                expectThat(it.last()) {
+            backgroundScope.launch {
+                expectThat(subject.uiState.last()) {
                     get { noEntryBasedOnSearchQuery } isEqualTo false
                     get { searchQuery } isEqualTo ""
                     get { characters } isEqualTo expectedCharacters
@@ -130,9 +123,8 @@ class HomeViewModelTest {
             subject.loadCharacters()
             subject.filterCharacters("s")
 
-            subject.uiState.test {
-                advanceUntilIdle()
-                expectThat(it.last()) {
+            backgroundScope.launch {
+                expectThat(subject.uiState.last()) {
                     get { noEntryBasedOnSearchQuery } isEqualTo false
                     get { searchQuery } isEqualTo "s"
                     get { characters } hasSize 1
@@ -151,9 +143,8 @@ class HomeViewModelTest {
             subject.loadCharacters()
             subject.filterCharacters("ssfdsfasd")
 
-            subject.uiState.test {
-                advanceUntilIdle()
-                expectThat(it.last()) {
+            backgroundScope.launch {
+                expectThat(subject.uiState.last()) {
                     get { noEntryBasedOnSearchQuery } isEqualTo true
                     get { searchQuery } isEqualTo "ssfdsfasd"
                 }

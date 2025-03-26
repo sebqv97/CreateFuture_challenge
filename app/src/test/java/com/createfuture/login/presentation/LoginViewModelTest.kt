@@ -3,19 +3,19 @@ package com.createfuture.login.presentation
 import com.createfuture.home.utils.CoroutineTestRule
 import com.createfuture.login.domain.usecase.HasUserLoggedInUseCase
 import com.createfuture.login.domain.usecase.RetrieveAndSafeCharactersApiKeyUseCase
+import io.mockk.coJustRun
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import io.mockk.runs
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest {
 
     @get:Rule
@@ -47,6 +47,7 @@ class LoginViewModelTest {
     fun `Given hasUserLoggedIn returns false When viewModel inits and onLogInPressed is called Then check navigation emission is done`() =
         runTest {
             every { hasUserLoggedInUseCase.invoke() } returns false
+            coJustRun { retrieveAndSafeCharactersApiKeyUseCase.invoke() }
 
             subject = LoginViewModel(
                 retrieveAndSafeCharactersApiKeyUseCase,
