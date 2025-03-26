@@ -1,7 +1,7 @@
 package com.createfuture.home.presentation
 
-import com.createfuture.home.data.characters.dto.ApiCharacter
 import com.createfuture.home.domain.GetCharactersUseCase
+import com.createfuture.home.domain.model.GotCharacter
 import com.createfuture.home.utils.CoroutineTestRule
 import io.mockk.coEvery
 import io.mockk.every
@@ -81,7 +81,7 @@ class HomeViewModelTest {
     @Test
     fun `Given getCharactersUseCase returns success When loadDevices is called Then check characters are emitted`() =
         runTest {
-            val expectedCharacters: List<ApiCharacter> = listOf(mockk(), mockk(), mockk())
+            val expectedCharacters: List<GotCharacter> = listOf(mockk(), mockk(), mockk())
             coEvery { getCharactersUseCase.invoke() } returns Result.success(expectedCharacters)
 
             subject.loadCharacters()
@@ -98,7 +98,7 @@ class HomeViewModelTest {
     @Test
     fun `Given searchQuery is blank when filterCharacters is called Then check all fetched characters are emitted`() =
         runTest {
-            val expectedCharacters: List<ApiCharacter> = listOf(mockk(), mockk(), mockk())
+            val expectedCharacters: List<GotCharacter> = listOf(mockk(), mockk(), mockk())
             coEvery { getCharactersUseCase.invoke() } returns Result.success(expectedCharacters)
 
             subject.loadCharacters()
@@ -116,7 +116,7 @@ class HomeViewModelTest {
     @Test
     fun `Given searchQuery when filterCharacters is called Then check correct characters are emitted`() =
         runTest {
-            val retrievedCharacters: List<ApiCharacter> = listOf(mockk {
+            val retrievedCharacters: List<GotCharacter> = listOf(mockk {
                 every { name } returns "Seb"
             }, mockk(relaxed = true), mockk(relaxed = true))
             coEvery { getCharactersUseCase.invoke() } returns Result.success(retrievedCharacters)
@@ -136,7 +136,7 @@ class HomeViewModelTest {
     @Test
     fun `Given searchQuery is scribble when filterCharacters is called Then check correct characters are emitted`() =
         runTest {
-            val retrievedCharacters: List<ApiCharacter> = listOf(mockk {
+            val retrievedCharacters: List<GotCharacter> = listOf(mockk {
                 every { name } returns "Seb"
             }, mockk(relaxed = true), mockk(relaxed = true))
             coEvery { getCharactersUseCase.invoke() } returns Result.success(retrievedCharacters)

@@ -1,5 +1,6 @@
 package com.createfuture.home.data.characters
 
+import com.createfuture.home.data.mapper.CharacterMapper
 import com.createfuture.home.domain.repository.CharactersRepository
 import io.mockk.coEvery
 import io.mockk.every
@@ -16,11 +17,12 @@ import java.io.IOException
 class CharactersRepositoryImplTest {
 
     private val charactersApi = mockk<CharactersServiceApi>()
+    private val charactersMapper = mockk<CharacterMapper>()
     private lateinit var subject: CharactersRepository
 
     @Before
     fun setUp() {
-        subject = CharactersRepositoryImpl(charactersApi)
+        subject = CharactersRepositoryImpl(charactersApi, charactersMapper)
     }
 
     @Test
@@ -52,7 +54,10 @@ class CharactersRepositoryImplTest {
     @Test
     fun `Given charactersApi returns response with unsuccessful code When calling getCharacters Then check we get failure`() =
         runTest {
-            coEvery { charactersApi.getCharacters() } returns Response.error(403, mockk(relaxed = true))
+            coEvery { charactersApi.getCharacters() } returns Response.error(
+                403,
+                mockk(relaxed = true)
+            )
 
             val actual = subject.getCharacters()
 
